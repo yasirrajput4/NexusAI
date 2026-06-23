@@ -87,7 +87,9 @@ export function ChatWindow({
         {/* Model badge */}
         <div className="hidden sm:flex items-center gap-1.5 shrink-0">
           <div className="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
-          <span className="text-[11px] text-zinc-600">Llama 3.3 70B Versatile</span>
+          <span className="text-[11px] text-zinc-600">
+            Llama 3.3 70B Versatile
+          </span>
         </div>
       </header>
 

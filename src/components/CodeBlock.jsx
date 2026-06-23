@@ -30,7 +30,7 @@ export function CodeBlock({ language, children }) {
           </span>
         </div>
         <button
-        type="button"
+          type="button"
           onClick={handleCopy}
           className={`flex items-center gap-1.5 text-xs px-3 py-1 rounded-md transition-all duration-200 ${
             copied

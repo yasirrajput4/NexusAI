@@ -89,5 +89,3 @@ src/
 - Voice input requires HTTPS or localhost.
 - TTS voice quality depends on the user's OS and installed voices.
 - Groq's free tier has generous rate limits suitable for development and personal use.
-
-

@@ -28,7 +28,7 @@ function SpeakerButton({ text }) {
 
   return (
     <button
-    type="button"
+      type="button"
       onClick={handleSpeak}
       title={isSpeaking ? "Stop speaking" : "Read aloud"}
       className={`p-1.5 rounded-lg transition-all duration-150 ${
