@@ -18,8 +18,8 @@ export function EmptyState({ onSelectPrompt }) {
         What can I help you with?
       </h1>
       <p className="text-sm text-zinc-500 mb-10 max-w-sm">
-        Powered by Llama 3.3 70B Versatile. Ask anything — from code to creative
-        writing.
+        Powered by <span className="font-medium text-zinc-300">Llama 3.3</span>{" "}
+        (70B Versatile). Ask anything — from code to creative writing.
       </p>
 
       {/* Prompt suggestion grid */}
