@@ -1,91 +1,135 @@
-# NexusAI — Production-Grade AI Chat SaaS Platform
+# NexusAI — AI Chat SaaS Platform
 
-A fully-featured, production-ready AI chat platform built with React + Vite + Tailwind CSS, powered by Groq (Llama 3.3 70B).
+A production-ready AI chat platform built entirely on the frontend — no custom backend server, no database to manage, no infrastructure to deploy. Just React, Vite, and Groq's API, shipped as a static site.
+
+**🔗 Live Demo:** https://nexus-ai-five-wine.vercel.app/
+**💻 GitHub:** https://github.com/yasirrajput4/NexusAI
+
+---
+
+## Why frontend-only?
+
+This isn't a limitation — it's a deliberate architecture choice.
+
+NexusAI proves that a full-featured, multi-session AI chat product can be built and shipped without standing up a server: no Express, no Node API routes, and no database. Session state, history, and persistence all live in the browser using `localStorage`, while AI inference is handled directly by Groq's API from the client.
+
+The tradeoff is that the API key is exposed in the browser, which is acceptable for personal projects, demos, and prototypes. For a production-ready multi-tenant SaaS product, requests should go through a lightweight backend proxy to keep the API key secure and support authentication, authorization, and rate limiting. This tradeoff is intentional and documented rather than being an oversight.
+
+---
 
 ## Features
 
-- **Multi-session chat management** — Create, switch, rename, and delete independent conversation threads
-- **Auto-naming** — Thread titles auto-generate from the first message
-- **LocalStorage persistence** — Full chat history survives page refreshes
-- **Time-categorized sidebar** — Threads grouped by Today / Yesterday / Last 7 Days / Last 30 Days
-- **Voice input (STT)** — Mic button using the Web Speech API (`webkitSpeechRecognition`)
-- **Text-to-speech (TTS)** — Speaker button on every AI response using `window.speechSynthesis`
-- **Rich Markdown rendering** — Lists, tables, bold, code, blockquotes via `react-markdown`
-- **Code blocks** — Language label header + functional "Copy" button with 2-second confirmation
-- **Syntax highlighting** — via `react-syntax-highlighter` (VSCode Dark+ theme)
-- **Skeleton loading** — Animated typing indicator while waiting for the API
-- **Example prompt grid** — Beautiful empty state with 6 clickable prompt starters
-- **Fully responsive** — Mobile sidebar drawer, desktop persistent sidebar
+- **Multi-session chat management** — Create, switch, rename, and delete independent conversation threads.
+- **Auto-naming** — Thread titles are automatically generated from the first user message.
+- **LocalStorage persistence** — Chat history survives page refreshes without any backend.
+- **Time-categorized sidebar** — Conversations grouped by Today, Yesterday, Last 7 Days, and Last 30 Days.
+- **Voice input (STT)** — Speech-to-text using the Web Speech API (`webkitSpeechRecognition`).
+- **Text-to-speech (TTS)** — Listen to AI responses using `window.speechSynthesis`.
+- **Rich Markdown rendering** — Supports lists, tables, blockquotes, bold text, and more using `react-markdown`.
+- **Code blocks** — Language header with one-click copy functionality.
+- **Syntax highlighting** — Powered by `react-syntax-highlighter` using the VSCode Dark+ theme.
+- **Skeleton loading** — Animated loading state while waiting for AI responses.
+- **Example prompt grid** — Six clickable starter prompts for first-time users.
+- **Fully responsive** — Optimized for desktop, tablet, and mobile devices.
 
-## Setup
+---
 
-### 1. Install dependencies
+## Tech Stack
+
+| Layer               | Technology                         |
+| ------------------- | ---------------------------------- |
+| Framework           | React 19                           |
+| Build Tool          | Vite                               |
+| Styling             | Tailwind CSS v4                    |
+| AI Model            | Groq API — Llama 3.3 70B Versatile |
+| Markdown Rendering  | react-markdown                     |
+| Syntax Highlighting | react-syntax-highlighter           |
+| Voice Features      | Web Speech API                     |
+| State Persistence   | localStorage                       |
+| Deployment          | Vercel                             |
+
+---
+
+## Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/yasirrajput4/NexusAI.git
+cd NexusAI
+```
+
+### 2. Install dependencies
 
 ```bash
 npm install
 ```
 
-### 2. Add your Groq API key
+### 3. Add your Groq API key
 
-Create a `.env.local` file in the **project root** (same folder as `package.json`) and add:
+Create a `.env.local` file in the project root.
 
 ```env
-VITE_GROQ_API_KEY=gsk_xxxxxxxxxxxxxxxxxxxxxxxx
+VITE_GROQ_API_KEY=gsk_xxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
-Get a **free** API key at: https://console.groq.com
+You can obtain a free API key from:
 
-> ⚠️ Make sure the file is named `.env.local` (dot, not underscore). After creating or editing this file, restart the dev server.
+https://console.groq.com
 
-### 3. Run the dev server
+> **Note:** The file must be named `.env.local`. Restart the development server after creating or updating it.
+
+### 4. Start the development server
 
 ```bash
 npm run dev
 ```
 
-### 4. Build for production
+### 5. Build for production
 
 ```bash
 npm run build
 ```
 
+---
+
 ## Project Structure
 
-```
+```text
 src/
 ├── components/
-│   ├── Sidebar.jsx        — Sidebar with thread list, new chat, clear all
-│   ├── ChatWindow.jsx     — Main chat area with header and scroll
-│   ├── MessageBubble.jsx  — User/AI/Error message bubbles + TTS/Copy
-│   ├── ChatInput.jsx      — Input bar with voice input + send button
-│   ├── CodeBlock.jsx      — Code blocks with language label + copy
-│   └── EmptyState.jsx     — Landing screen with example prompts
+│   ├── Sidebar.jsx
+│   ├── ChatWindow.jsx
+│   ├── MessageBubble.jsx
+│   ├── ChatInput.jsx
+│   ├── CodeBlock.jsx
+│   └── EmptyState.jsx
+│
 ├── hooks/
-│   ├── useThreads.js           — Thread CRUD + LocalStorage state
-│   ├── useGroqAPI.js           — Groq API request logic
-│   └── useSpeechRecognition.js — Web Speech API wrapper
+│   ├── useThreads.js
+│   ├── useGroqAPI.js
+│   └── useSpeechRecognition.js
+│
 ├── utils/
-│   └── threadUtils.js     — Thread creation, persistence, categorization
-├── constants.js           — API URL, example prompts, storage keys
-├── App.jsx                — Root orchestrator component
-├── main.jsx               — React entry point
-└── index.css              — Global styles + Tailwind + animations
+│   └── threadUtils.js
+│
+├── constants.js
+├── App.jsx
+├── main.jsx
+└── index.css
 ```
 
-## Tech Stack
+---
 
-- **React 19** with hooks (useState, useEffect, useRef, useCallback, useMemo)
-- **Vite** — Lightning-fast bundler
-- **Tailwind CSS v4** — Utility-first styling
-- **react-markdown** — Markdown rendering
-- **react-syntax-highlighter** — Code syntax highlighting
-- **Groq API** — Ultra-fast LLM inference (Llama 3.3 70B Versatile)
-- **Web Speech API** — Browser-native STT/TTS (no external library)
-- **localStorage** — Zero-backend persistence
+## Known Tradeoffs & Notes
 
-## Notes
+- **API key exposure:** Since this is a frontend-only application, the Groq API key is included in the browser bundle using the `VITE_` environment variable. This is acceptable for demos and personal projects but should be replaced with a backend proxy in production.
+- **Voice input:** Speech recognition requires HTTPS or `localhost`.
+- **Text-to-speech:** Voice quality depends on the operating system and installed voices.
+- **Rate limits:** Groq's free tier is suitable for development and personal use but is not intended for high-traffic production workloads.
 
-- The Groq API key is visible in the browser. For production, proxy calls through a backend.
-- Voice input requires HTTPS or localhost.
-- TTS voice quality depends on the user's OS and installed voices.
-- Groq's free tier has generous rate limits suitable for development and personal use.
+---
+
+## License
+
+This project is licensed under the MIT License.
