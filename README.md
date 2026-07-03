@@ -1,9 +1,8 @@
 # NexusAI — AI Chat SaaS Platform
 
-A production-ready AI chat platform built entirely on the frontend — no custom backend server, no database to manage, no infrastructure to deploy. Just React, Vite, and Groq's API, shipped as a static site.
+AI chat platform built entirely on the frontend — no custom backend server, no database to manage, no infrastructure to deploy. Just React, Vite, and Groq's API, shipped as a static site.
 
 **🔗 Live Demo:** https://nexus-ai-five-wine.vercel.app/
-**💻 GitHub:** https://github.com/yasirrajput4/NexusAI
 
 ---
 
@@ -38,7 +37,7 @@ The tradeoff is that the API key is exposed in the browser, which is acceptable 
 
 | Layer               | Technology                         |
 | ------------------- | ---------------------------------- |
-| Framework           | React 19                           |
+| Library             | React 19                           |
 | Build Tool          | Vite                               |
 | Styling             | Tailwind CSS v4                    |
 | AI Model            | Groq API — Llama 3.3 70B Versatile |
