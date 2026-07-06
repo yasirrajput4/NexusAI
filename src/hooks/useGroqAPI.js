@@ -10,7 +10,6 @@ export function useGroqAPI() {
     setError(null);
 
     try {
-      // ✅ OPTIMIZED: Filter aur Map dono ek hi loop (.reduce) mein ho gaye
       const formattedMessages = messages.reduce((acc, m) => {
         if (m.role === "user" || m.role === "model") {
           acc.push({

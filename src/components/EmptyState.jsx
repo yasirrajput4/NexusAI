@@ -27,7 +27,6 @@ export function EmptyState({ onSelectPrompt }) {
         {EXAMPLE_PROMPTS.map((prompt) => (
           <button
             type="button"
-            // 🔧 FIX: Index 'i' ki jagah stable property 'prompt.subtitle' ko key banaya
             key={prompt.subtitle}
             onClick={() => onSelectPrompt(prompt.subtitle)}
             className="group relative text-left p-4 rounded-xl bg-zinc-900 border border-zinc-800 hover:border-violet-500/50 hover:bg-zinc-800/80 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-violet-500/40"

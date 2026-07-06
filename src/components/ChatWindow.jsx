@@ -26,7 +26,6 @@ export function ChatWindow({
       {/* Sticky header */}
       <header className="flex items-center gap-3 px-4 py-3 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800/60 shrink-0 sticky top-0 z-10">
         {/* Mobile sidebar toggle */}
-        {/* 🔧 FIX: Added missing aria-label for the icon button */}
         <button
           type="button"
           onClick={onSidebarToggle}

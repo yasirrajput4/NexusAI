@@ -120,7 +120,6 @@ function ThreadItem({ thread, isActive, onSelect, onDelete, onRename }) {
                 </svg>
               </button>
 
-              {/* 🔧 FIX: Avoided combining text-zinc with a red background modifier to fix accessibility warning */}
               <button
                 type="button"
                 title="Delete"
@@ -322,7 +321,6 @@ export function Sidebar({
                   </div>
                 </div>
               ) : (
-                /* 🔧 FIX: Shifted background modifier to neutral zinc on hover to satisfy contrast rules */
                 <button
                   type="button"
                   onClick={() => setShowClearConfirm(true)}

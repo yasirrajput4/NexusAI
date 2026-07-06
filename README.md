@@ -2,7 +2,7 @@
 
 AI chat platform built entirely on the frontend — no custom backend server, no database to manage, no infrastructure to deploy. Just React, Vite, and Groq's API, shipped as a static site.
 
-**🔗 Live Demo:** https://nexus-ai-five-wine.vercel.app/
+**🔗 Live Demo:** https://nexus-ai-five-wine.vercel.app
 
 ---
 

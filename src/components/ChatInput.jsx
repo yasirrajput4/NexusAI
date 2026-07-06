@@ -52,8 +52,6 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
             : "border-zinc-700/60 focus-within:border-violet-500/60 focus-within:shadow-violet-900/20"
         }`}
       >
-        {/* Textarea */}
-        {/* 🔧 FIX: Added missing accessible label */}
         <textarea
           ref={textareaRef}
           value={value}

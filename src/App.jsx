@@ -32,7 +32,6 @@ function App() {
     setSidebarOpen(false);
   }, [createNewThread]);
 
-  // 🔧 FIX: Dependency array lagaya aur 'selectThread' ko dependency me add kiya
   const handleSelectThread = useCallback(
     (threadId) => {
       selectThread(threadId);
@@ -49,24 +48,21 @@ function App() {
         await new Promise((r) => setTimeout(r, 0));
       }
 
-      // 1. User ka message screen par add karo
       const userMessage = { role: "user", text };
       addMessage(userMessage);
 
       const history = [...(thread?.messages || []), userMessage];
 
       try {
-        // 2. API call karo
         const responseText = await sendMessage(history, null);
 
         if (responseText) {
           addMessage({ role: "model", text: responseText });
         }
       } catch (err) {
-        // 🛠️ Loop se bachne ke liye direct yahan error handle karo!
         const errMsg = err.message || "Something went wrong.";
         addMessage({ role: "error", text: errMsg });
-        clearError(); // Custom hook ki error state clear karo
+        clearError(); 
       }
     },
     [activeThread, createNewThread, addMessage, sendMessage, clearError],
