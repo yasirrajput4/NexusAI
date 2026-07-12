@@ -25,6 +25,7 @@ export function ChatWindow({
       {!isEmpty && (
         <header className="flex items-center gap-3 px-4 py-3 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800/60 shrink-0 sticky top-0 z-10">
           <button
+            type="button" // Fixed: Added explicit type
             onClick={onSidebarToggle}
             className="lg:hidden p-2 rounded-lg text-zinc-500 hover:text-zinc-200 hover:bg-zinc-800 transition-colors"
           >
@@ -66,6 +67,7 @@ export function ChatWindow({
           {/* Mobile menu */}
           <div className="absolute top-3 left-4 lg:hidden">
             <button
+              type="button" // Fixed: Added explicit type
               onClick={onSidebarToggle}
               className="p-2 rounded-lg text-zinc-500 hover:text-zinc-200 hover:bg-zinc-800 transition-colors"
             >
