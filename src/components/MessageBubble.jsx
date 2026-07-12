@@ -190,7 +190,7 @@ export function MessageBubble({ message, isLast }) {
       <div className="message-enter flex justify-end px-4 py-2">
         <div className="max-w-[75%] lg:max-w-[60%]">
           <div className="bg-zinc-800 border border-zinc-700/60 rounded-2xl rounded-tr-sm px-4 py-3">
-            <p className="text-sm text-zinc-100 leading-relaxed whitespace-pre-wrap break-words">
+            <p className="text-base text-zinc-100 leading-relaxed whitespace-pre-wrap break-words">
               {message.text}
             </p>
           </div>
@@ -215,7 +215,7 @@ export function MessageBubble({ message, isLast }) {
 
       {/* Content */}
       <div className="flex-1 min-w-0">
-        <div className="prose-chat text-zinc-200 text-sm leading-relaxed">
+        <div className="prose-chat text-zinc-200 text-base leading-relaxed">
           <ReactMarkdown components={markdownComponents}>
             {message.text}
           </ReactMarkdown>

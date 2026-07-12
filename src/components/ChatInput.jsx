@@ -59,13 +59,11 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
           onKeyDown={handleKeyDown}
           aria-label="Chat prompt message"
           placeholder={
-            isListening
-              ? "Listening… speak your prompt"
-              : "Ask anything — press Enter to send, Shift+Enter for new line"
+            isListening ? "Listening… speak your prompt" : "Ask anything…"
           }
           disabled={isLoading || disabled}
           rows={1}
-          className="flex-1 bg-transparent text-sm text-zinc-100 placeholder:text-zinc-600 resize-none outline-none leading-relaxed max-h-48 min-h-[24px] py-0.5 disabled:opacity-50"
+          className="flex-1 bg-transparent text-base text-zinc-100 placeholder:text-zinc-500 resize-none outline-none leading-relaxed max-h-48 min-h-[28px] py-0.5 disabled:opacity-50"
         />
 
         {/* Right-side controls */}
