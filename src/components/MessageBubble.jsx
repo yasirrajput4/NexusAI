@@ -30,6 +30,7 @@ function SpeakerButton({ text }) {
     <button
       type="button"
       onClick={handleSpeak}
+      aria-label={isSpeaking ? "Stop speaking" : "Read aloud"}
       title={isSpeaking ? "Stop speaking" : "Read aloud"}
       className={`p-1.5 rounded-lg transition-all duration-150 ${
         isSpeaking
@@ -96,6 +97,7 @@ function CopyMessageButton({ text }) {
     <button
       type="button"
       onClick={handleCopy}
+      aria-label="Copy message to clipboard"
       title="Copy message"
       className="p-1.5 rounded-lg text-zinc-600 hover:text-zinc-300 hover:bg-zinc-700/60 transition-all duration-150"
     >
