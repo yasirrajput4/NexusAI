@@ -17,12 +17,10 @@ export function useThreads() {
     return allThreads.length > 0 ? allThreads[0].id : null;
   });
 
-  // Persist threads to localStorage whenever they change
   useEffect(() => {
     saveThreads(threads);
   }, [threads]);
 
-  // Persist active thread ID
   useEffect(() => {
     saveActiveThreadId(activeThreadId);
   }, [activeThreadId]);
@@ -42,20 +40,21 @@ export function useThreads() {
 
   const deleteThread = useCallback(
     (threadId) => {
-      setThreads((prev) => {
-        const updated = prev.filter((t) => t.id !== threadId);
-        // If we deleted the active thread, switch to the first remaining
-        if (threadId === activeThreadId) {
-          if (updated.length > 0) {
-            setActiveThreadId(updated[0].id);
-          } else {
-            setActiveThreadId(null);
-          }
+      // 1. Calculate the new threads array first
+      const updatedThreads = threads.filter((t) => t.id !== threadId);
+      setThreads(updatedThreads);
+
+      // 2. Perform the side effect (updating the active thread ID)
+      // outside the setThreads callback.
+      if (threadId === activeThreadId) {
+        if (updatedThreads.length > 0) {
+          setActiveThreadId(updatedThreads[0].id);
+        } else {
+          setActiveThreadId(null);
         }
-        return updated;
-      });
+      }
     },
-    [activeThreadId],
+    [threads, activeThreadId],
   );
 
   const clearAllThreads = useCallback(() => {
