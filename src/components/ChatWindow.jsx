@@ -25,8 +25,9 @@ export function ChatWindow({
       {!isEmpty && (
         <header className="flex items-center gap-3 px-4 py-3 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800/60 shrink-0 sticky top-0 z-10">
           <button
-            type="button" // Fixed: Added explicit type
+            type="button"
             onClick={onSidebarToggle}
+            aria-label="Toggle sidebar"
             className="lg:hidden p-2 rounded-lg text-zinc-500 hover:text-zinc-200 hover:bg-zinc-800 transition-colors"
           >
             <svg
@@ -67,8 +68,9 @@ export function ChatWindow({
           {/* Mobile menu */}
           <div className="absolute top-3 left-4 lg:hidden">
             <button
-              type="button" // Fixed: Added explicit type
+              type="button"
               onClick={onSidebarToggle}
+              aria-label="Toggle sidebar"
               className="p-2 rounded-lg text-zinc-500 hover:text-zinc-200 hover:bg-zinc-800 transition-colors"
             >
               <svg
@@ -87,10 +89,8 @@ export function ChatWindow({
             </button>
           </div>
 
-          {/* Hero */}
           <EmptyState />
 
-          {/* Input — centered, max-width same as chat */}
           <div className="w-full max-w-2xl mt-12">
             <ChatInput
               onSubmit={onSendMessage}
@@ -106,7 +106,8 @@ export function ChatWindow({
             <div className="max-w-3xl mx-auto w-full py-4">
               {activeThread.messages.map((message, index) => (
                 <MessageBubble
-                  key={`${message.role}-${index}`}
+                  // Using unique id for stable keys
+                  key={message.id}
                   message={message}
                   isLast={index === activeThread.messages.length - 1}
                 />
