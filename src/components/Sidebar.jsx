@@ -165,7 +165,6 @@ export function Sidebar({
 
   return (
     <>
-      {/* Mobile backdrop */}
       {isOpen && (
         <button
           type="button"
@@ -175,13 +174,9 @@ export function Sidebar({
         />
       )}
 
-      {/* Sidebar */}
       <aside
-        className={`fixed lg:relative inset-y-0 left-0 z-30 lg:z-auto flex flex-col w-64 bg-zinc-950 border-r border-zinc-800/60 transition-transform duration-300 ${
-          isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-        }`}
+        className={`fixed lg:relative inset-y-0 left-0 z-30 lg:z-auto flex flex-col w-64 bg-zinc-950 border-r border-zinc-800/60 transition-transform duration-300 ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
       >
-        {/* Logo / Brand */}
         <div className="flex items-center justify-between px-4 py-4 border-b border-zinc-800/60">
           <div className="flex items-center gap-2.5">
             <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-600 to-purple-700 flex items-center justify-center shadow-lg">
@@ -219,7 +214,6 @@ export function Sidebar({
           </button>
         </div>
 
-        {/* New Chat Button */}
         <div className="px-3 pt-3 pb-2">
           <button
             type="button"
@@ -243,7 +237,6 @@ export function Sidebar({
           </button>
         </div>
 
-        {/* Thread list */}
         <div className="flex-1 overflow-y-auto px-3 pb-2 space-y-4">
           {threadGroups.length === 0 ? (
             <div className="text-center py-10">
@@ -263,9 +256,6 @@ export function Sidebar({
                 </svg>
               </div>
               <p className="text-xs text-zinc-600">No conversations yet</p>
-              <p className="text-xs text-zinc-700 mt-1">
-                Start a new chat above
-              </p>
             </div>
           ) : (
             threadGroups.map((group) => (
@@ -290,13 +280,13 @@ export function Sidebar({
           )}
         </div>
 
-        {/* Bottom section */}
-        <div className="border-t border-zinc-800/60 p-3 space-y-2">
+        {/* Bottom Section Updated */}
+        <div className="border-t border-zinc-800/60 p-3 space-y-3">
           {threads.length > 0 && (
             <>
               {showClearConfirm ? (
                 <div className="bg-red-950/40 border border-red-800/40 rounded-lg p-3">
-                  <p className="text-xs text-red-300 mb-2">
+                  <p className="text-sm text-red-300 mb-3">
                     Delete all {threads.length} conversation
                     {threads.length > 1 ? "s" : ""}?
                   </p>
@@ -307,14 +297,14 @@ export function Sidebar({
                         onClearAll();
                         setShowClearConfirm(false);
                       }}
-                      className="flex-1 text-xs py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
+                      className="flex-1 text-sm py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors font-medium"
                     >
                       Delete all
                     </button>
                     <button
                       type="button"
                       onClick={() => setShowClearConfirm(false)}
-                      className="flex-1 text-xs py-1.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-lg transition-colors"
+                      className="flex-1 text-sm py-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-lg transition-colors"
                     >
                       Cancel
                     </button>
@@ -324,10 +314,10 @@ export function Sidebar({
                 <button
                   type="button"
                   onClick={() => setShowClearConfirm(true)}
-                  className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-zinc-400 hover:text-red-400 hover:bg-zinc-800 text-xs transition-all duration-150"
+                  className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 hover:text-red-400 hover:bg-zinc-800 text-sm transition-all duration-150"
                 >
                   <svg
-                    className="w-3.5 h-3.5"
+                    className="w-4 h-4"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -344,11 +334,11 @@ export function Sidebar({
               )}
             </>
           )}
-          <div className="flex items-center gap-2 px-3 py-1.5">
-            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-[10px] text-white font-semibold">
+          <div className="flex items-center gap-3 px-3 py-2">
+            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-[11px] text-white font-semibold">
               U
             </div>
-            <span className="text-xs text-zinc-400">Llama 3.3</span>
+            <span className="text-sm text-zinc-300 font-medium">Llama 3.3</span>
             <div className="ml-auto w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50"></div>
           </div>
         </div>

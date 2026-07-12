@@ -177,7 +177,7 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
       </div>
 
       {/* Footer hint */}
-      <p className="text-center text-[11px] text-zinc-700 mt-2">
+      <p className="text-center text-[15px] text-zinc-700 mt-3">
         NexusAI may produce inaccurate information about people, places, or
         facts.
       </p>
