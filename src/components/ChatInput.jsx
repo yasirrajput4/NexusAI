@@ -152,6 +152,7 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
             {suggestions.map((suggestion, i) => (
               <li key={i}>
                 <button
+                  type="button"
                   onMouseDown={(e) => {
                     e.preventDefault(); // prevent textarea blur
                     handleSuggestionClick(suggestion);
@@ -247,6 +248,7 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
           {/* Mic button */}
           {isSupported && (
             <button
+              type="button"
               onClick={toggleListening}
               disabled={isLoading}
               title={isListening ? "Stop recording" : "Voice input"}
@@ -277,6 +279,7 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
 
           {/* Send button */}
           <button
+            type="button"
             onClick={() => handleSubmit()}
             disabled={!canSubmit}
             title="Send message"
