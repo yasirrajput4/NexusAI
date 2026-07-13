@@ -21,7 +21,7 @@ export function ChatWindow({
 
   return (
     <div className="flex flex-col h-full bg-zinc-950">
-      {/* Header — sirf active chat mein dikhega */}
+      {/* Header — Show only when chat is active */}
       {!isEmpty && (
         <header className="flex items-center gap-3 px-4 py-3 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800/60 shrink-0 sticky top-0 z-10">
           <button

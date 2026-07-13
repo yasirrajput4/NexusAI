@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://nexus-ai-five-wine.vercel.app/favicon.ico" width="60" height="60" alt="NexusAI Logo" />
+# 🤖 NexusAI
 
 # NexusAI
 
@@ -14,7 +14,7 @@ Built with React 19 + Vite + Tailwind CSS v4, powered by Groq's ultra-fast Llama
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-6-646CFF?style=for-the-badge&logo=vite)](https://vitejs.dev)
 
-![NexusAI Screenshot](https://github.com/user-attachments/assets/f7541950-c89f-4fef-b3d3-cee59c66eeff)
+![NexusAI Screenshot](https://github.com/user-attachments/assets/a3931d74-7ecf-41a7-a048-6f8aa2474b64)
 
 </div>
 
