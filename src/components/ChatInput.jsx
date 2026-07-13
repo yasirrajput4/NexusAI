@@ -89,7 +89,6 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
 
   const handleKeyDown = useCallback(
     (e) => {
-      // Navigate suggestions with arrow keys
       if (showSuggestions && suggestions.length > 0) {
         if (e.key === "ArrowDown") {
           e.preventDefault();
@@ -150,11 +149,11 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
           </div>
           <ul className="pb-2">
             {suggestions.map((suggestion, i) => (
-              <li key={i}>
+              <li key={suggestion}>
                 <button
                   type="button"
                   onMouseDown={(e) => {
-                    e.preventDefault(); // prevent textarea blur
+                    e.preventDefault();
                     handleSuggestionClick(suggestion);
                   }}
                   onMouseEnter={() => setActiveSuggestion(i)}
@@ -164,7 +163,6 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
                       : "text-zinc-300 hover:bg-zinc-800"
                   }`}
                 >
-                  {/* Suggestion icon */}
                   <svg
                     className={`w-3.5 h-3.5 mt-0.5 shrink-0 ${
                       activeSuggestion === i
@@ -190,7 +188,7 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
         </div>
       )}
 
-      {/* Loading indicator for suggestions */}
+      {/* Loading indicator */}
       {suggestionsLoading && value.trim().length >= 8 && (
         <div className="absolute bottom-full left-4 mb-2">
           <div className="flex items-center gap-2 px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg">
@@ -245,7 +243,6 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
         />
 
         <div className="flex items-center gap-1.5 shrink-0 pb-0.5">
-          {/* Mic button */}
           {isSupported && (
             <button
               type="button"
@@ -277,7 +274,6 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
             </button>
           )}
 
-          {/* Send button */}
           <button
             type="button"
             onClick={() => handleSubmit()}
