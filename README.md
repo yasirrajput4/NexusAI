@@ -1,7 +1,5 @@
 <div align="center">
 
-# 🤖 NexusAI
-
 # NexusAI
 
 ### A production-grade AI chat platform — fully frontend, zero backend.
@@ -45,6 +43,7 @@ NexusAI proves that a full-featured, multi-session AI chat product can be built 
 
 | Feature              | Details                                                       |
 | -------------------- | ------------------------------------------------------------- |
+| AI autocomplete      | Groq-powered prompt suggestions as you type (800ms debounce)  |
 | Voice input (STT)    | Speech-to-text via Web Speech API (`webkitSpeechRecognition`) |
 | Text-to-speech (TTS) | Listen to any AI response via `window.speechSynthesis`        |
 | Groq inference       | Llama 3.3 70B Versatile — one of the fastest LLMs available   |
@@ -132,13 +131,14 @@ NexusAI/
 │   │   ├── Sidebar.jsx          # Thread list, new chat, rename, delete, clear all
 │   │   ├── ChatWindow.jsx       # Main chat area — header, scroll, empty state layout
 │   │   ├── MessageBubble.jsx    # User / AI / Error bubbles with TTS + copy
-│   │   ├── ChatInput.jsx        # Auto-resize input with voice mic + send button
+│   │   ├── ChatInput.jsx        # Auto-resize input, AI autocomplete, voice mic, send
 │   │   ├── CodeBlock.jsx        # Code renderer with language badge + copy button
 │   │   └── EmptyState.jsx       # Centered hero shown on new/empty threads
 │   │
 │   ├── hooks/
 │   │   ├── useThreads.js            # Thread CRUD + localStorage sync + auto-naming
 │   │   ├── useGroqAPI.js            # Groq API fetch wrapper with error state
+│   │   ├── useAutocomplete.js       # AI prompt suggestions with debounce + AbortController
 │   │   └── useSpeechRecognition.js  # Web Speech API — start / stop / toggle
 │   │
 │   ├── utils/
@@ -159,22 +159,23 @@ NexusAI/
 
 ---
 
-## Architecture Overview
+## How AI Autocomplete Works
+
+As you type a prompt, `useAutocomplete` waits 800ms after you stop typing, then sends your partial input to Groq and returns 3 contextual completions in a dropdown.
 
 ```
-Browser
-│
-├── React App (Vite static bundle)
-│   ├── State: useThreads hook → localStorage
-│   ├── Voice: useSpeechRecognition → Web Speech API
-│   └── UI: Sidebar + ChatWindow + MessageBubble
-│
-└── API Calls
-    └── Groq REST API (client-side fetch)
-        └── Model: llama-3.3-70b-versatile
+User types → 800ms debounce → Groq API call → 3 suggestions rendered
+                                    ↑
+                          AbortController cancels
+                          any previous in-flight request
 ```
 
-No server. No database. No auth layer. Just a static site talking directly to an AI API.
+**Keyboard shortcuts:**
+
+- `Tab` — select the first suggestion
+- `↑ ↓` — navigate between suggestions
+- `Escape` — dismiss the dropdown
+- `Click` — select any suggestion
 
 ---
 
@@ -192,6 +193,9 @@ No server. No database. No auth layer. Just a static site talking directly to an
 
 ## Roadmap
 
+- [x] Multi-session thread management
+- [x] Voice input & text-to-speech
+- [x] AI-powered autocomplete suggestions
 - [ ] Streaming responses (token-by-token rendering)
 - [ ] Backend proxy for secure API key handling
 - [ ] Export chat as Markdown or PDF
