@@ -125,36 +125,33 @@ npm run preview   # optional: preview the production build locally
 
 ```
 NexusAI/
-├── public/
 ├── src/
 │   ├── components/
-│   │   ├── Sidebar.jsx          # Thread list, new chat, rename, delete, clear all
-│   │   ├── ChatWindow.jsx       # Main chat area — header, scroll, empty state layout
-│   │   ├── MessageBubble.jsx    # User / AI / Error bubbles with TTS + copy
-│   │   ├── ChatInput.jsx        # Auto-resize input, AI autocomplete, voice mic, send
-│   │   ├── CodeBlock.jsx        # Code renderer with language badge + copy button
-│   │   └── EmptyState.jsx       # Centered hero shown on new/empty threads
+│   │   ├── Sidebar.jsx           # Thread list, new chat, rename, delete, clear all
+│   │   ├── ChatWindow.jsx        # Main chat area — header, scroll, empty state layout
+│   │   ├── MessageBubble.jsx     # User / AI / Error bubbles with TTS + copy
+│   │   ├── ChatInput.jsx         # Auto-resize input, AI autocomplete, voice mic, send
+│   │   ├── CodeBlock.jsx         # Code renderer with language badge + copy button
+│   │   └── EmptyState.jsx        # Centered hero shown on new/empty threads
 │   │
 │   ├── hooks/
-│   │   ├── useThreads.js            # Thread CRUD + localStorage sync + auto-naming
-│   │   ├── useGroqAPI.js            # Groq API fetch wrapper with error state
-│   │   ├── useAutocomplete.js       # AI prompt suggestions with debounce + AbortController
-│   │   └── useSpeechRecognition.js  # Web Speech API — start / stop / toggle
+│   │   ├── useThreads.js             # Thread CRUD + localStorage sync + auto-naming
+│   │   ├── useGroqAPI.js             # Groq API fetch wrapper with error state
+│   │   ├── useAutocomplete.js        # AI prompt suggestions with debounce + AbortController
+│   │   └── useSpeechRecognition.js   # Web Speech API — start / stop / toggle
 │   │
 │   ├── utils/
-│   │   └── threadUtils.js       # generateId, categorizeThreads, buildPayload, stripMarkdown
+│   │   └── threadUtils.js        # generateId, categorizeThreads, buildPayload, stripMarkdown
 │   │
-│   ├── constants.js             # API config, storage keys
-│   ├── App.jsx                  # Root component — wires all hooks and layouts
-│   ├── main.jsx                 # React entry point
-│   └── index.css                # Global styles, Tailwind, custom animations
+│   ├── constants.js              # API config, storage keys
+│   ├── App.jsx                   # Root component — wires all hooks and layouts
+│   ├── main.jsx                  # React entry point
+│   └── index.css                 # Global styles, Tailwind, custom animations
 │
-├── .env.local                   # Your API key (never commit)
+├── .env.local                    # Your API key (never commit)
 ├── .gitignore
 ├── index.html
-├── vite.config.js
 ├── package.json
-└── README.md
 ```
 
 ---
