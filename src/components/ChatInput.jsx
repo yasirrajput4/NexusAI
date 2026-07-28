@@ -1,22 +1,9 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { useSpeechRecognition } from "../hooks/useSpeechRecognition";
-import { useAutocomplete } from "../hooks/useAutocomplete";
-
-const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
 
 export function ChatInput({ onSubmit, isLoading, disabled }) {
   const [value, setValue] = useState("");
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const [activeSuggestion, setActiveSuggestion] = useState(-1);
   const textareaRef = useRef(null);
-  const containerRef = useRef(null);
-
-  const {
-    suggestions,
-    isLoading: suggestionsLoading,
-    getSuggestions,
-    clearSuggestions,
-  } = useAutocomplete(GROQ_API_KEY);
 
   const handleTranscript = useCallback((transcript) => {
     setValue((prev) => (prev ? prev + " " + transcript : transcript));
@@ -26,7 +13,6 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
   const { isListening, isSupported, toggleListening } =
     useSpeechRecognition(handleTranscript);
 
-  // Auto-resize textarea
   useEffect(() => {
     const ta = textareaRef.current;
     if (!ta) return;
@@ -34,191 +20,28 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
     ta.style.height = Math.min(ta.scrollHeight, 200) + "px";
   }, [value]);
 
-  // Show suggestions dropdown when they arrive
-  useEffect(() => {
-    if (suggestions.length > 0) {
-      setShowSuggestions(true);
-      setActiveSuggestion(-1);
-    } else {
-      setShowSuggestions(false);
-    }
-  }, [suggestions]);
-
-  // Close suggestions on outside click
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (containerRef.current && !containerRef.current.contains(e.target)) {
-        setShowSuggestions(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const handleChange = useCallback(
-    (e) => {
-      const text = e.target.value;
-      setValue(text);
-      getSuggestions(text);
-    },
-    [getSuggestions],
-  );
-
-  const handleSubmit = useCallback(
-    (text) => {
-      const finalText = (text || value).trim();
-      if (!finalText || isLoading || disabled) return;
-      clearSuggestions();
-      setShowSuggestions(false);
-      onSubmit(finalText);
-      setValue("");
-      if (textareaRef.current) textareaRef.current.style.height = "auto";
-    },
-    [value, isLoading, disabled, onSubmit, clearSuggestions],
-  );
-
-  const handleSuggestionClick = useCallback(
-    (suggestion) => {
-      setValue(suggestion);
-      clearSuggestions();
-      setShowSuggestions(false);
-      textareaRef.current?.focus();
-    },
-    [clearSuggestions],
-  );
+  const handleSubmit = useCallback(() => {
+    const text = value.trim();
+    if (!text || isLoading || disabled) return;
+    onSubmit(text);
+    setValue("");
+    if (textareaRef.current) textareaRef.current.style.height = "auto";
+  }, [value, isLoading, disabled, onSubmit]);
 
   const handleKeyDown = useCallback(
     (e) => {
-      if (showSuggestions && suggestions.length > 0) {
-        if (e.key === "ArrowDown") {
-          e.preventDefault();
-          setActiveSuggestion((prev) =>
-            prev < suggestions.length - 1 ? prev + 1 : prev,
-          );
-          return;
-        }
-        if (e.key === "ArrowUp") {
-          e.preventDefault();
-          setActiveSuggestion((prev) => (prev > 0 ? prev - 1 : -1));
-          return;
-        }
-        if (e.key === "Tab" && activeSuggestion >= 0) {
-          e.preventDefault();
-          handleSuggestionClick(suggestions[activeSuggestion]);
-          return;
-        }
-        if (e.key === "Tab" && suggestions.length > 0) {
-          e.preventDefault();
-          handleSuggestionClick(suggestions[0]);
-          return;
-        }
-        if (e.key === "Escape") {
-          setShowSuggestions(false);
-          return;
-        }
-      }
-
       if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
         handleSubmit();
       }
     },
-    [
-      showSuggestions,
-      suggestions,
-      activeSuggestion,
-      handleSubmit,
-      handleSuggestionClick,
-    ],
+    [handleSubmit],
   );
 
   const canSubmit = value.trim().length > 0 && !isLoading && !disabled;
 
   return (
-    <div ref={containerRef} className="px-4 pb-5 pt-3 relative">
-      {/* Suggestions dropdown */}
-      {showSuggestions && suggestions.length > 0 && (
-        <div className="absolute bottom-full left-4 right-4 mb-2 bg-zinc-900 border border-zinc-700/60 rounded-xl shadow-2xl shadow-black/50 overflow-hidden z-50">
-          <div className="px-3 pt-2.5 pb-1 flex items-center justify-between">
-            <span className="text-[10px] font-semibold uppercase tracking-widest text-zinc-600">
-              AI Suggestions
-            </span>
-            <span className="text-[10px] text-zinc-700">
-              Tab to select · Esc to close
-            </span>
-          </div>
-          <ul className="pb-2">
-            {suggestions.map((suggestion, i) => (
-              <li key={suggestion}>
-                <button
-                  type="button"
-                  onMouseDown={(e) => {
-                    e.preventDefault();
-                    handleSuggestionClick(suggestion);
-                  }}
-                  onMouseEnter={() => setActiveSuggestion(i)}
-                  className={`w-full text-left px-4 py-2.5 text-sm transition-colors duration-100 flex items-start gap-3 ${
-                    activeSuggestion === i
-                      ? "bg-violet-600/20 text-violet-200"
-                      : "text-zinc-300 hover:bg-zinc-800"
-                  }`}
-                >
-                  <svg
-                    className={`w-3.5 h-3.5 mt-0.5 shrink-0 ${
-                      activeSuggestion === i
-                        ? "text-violet-400"
-                        : "text-zinc-600"
-                    }`}
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M13 7l5 5m0 0l-5 5m5-5H6"
-                    />
-                  </svg>
-                  {suggestion}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {/* Loading indicator */}
-      {suggestionsLoading && value.trim().length >= 8 && (
-        <div className="absolute bottom-full left-4 mb-2">
-          <div className="flex items-center gap-2 px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg">
-            <svg
-              className="w-3 h-3 animate-spin text-violet-500"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              />
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-              />
-            </svg>
-            <span className="text-[11px] text-zinc-600">
-              Generating suggestions…
-            </span>
-          </div>
-        </div>
-      )}
-
-      {/* Input bar */}
+    <div className="px-4 pb-5 pt-3">
       <div
         className={`relative flex items-end gap-2 bg-zinc-800/80 border rounded-2xl px-3 py-3 shadow-xl shadow-black/30 backdrop-blur-sm transition-all duration-200 ${
           isListening
@@ -229,9 +52,8 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
         <textarea
           ref={textareaRef}
           value={value}
-          onChange={handleChange}
+          onChange={(e) => setValue(e.target.value)}
           onKeyDown={handleKeyDown}
-          onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
           placeholder={
             isListening
               ? "Listening… speak your prompt"
@@ -245,7 +67,6 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
         <div className="flex items-center gap-1.5 shrink-0 pb-0.5">
           {isSupported && (
             <button
-              type="button"
               onClick={toggleListening}
               disabled={isLoading}
               title={isListening ? "Stop recording" : "Voice input"}
@@ -275,8 +96,7 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
           )}
 
           <button
-            type="button"
-            onClick={() => handleSubmit()}
+            onClick={handleSubmit}
             disabled={!canSubmit}
             title="Send message"
             className={`p-2 rounded-xl transition-all duration-200 ${
@@ -324,7 +144,7 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
         </div>
       </div>
 
-      <p className="text-center text-[14px] text-zinc-700 mt-3">
+      <p className="text-center text-[11px] text-zinc-700 mt-2">
         NexusAI may produce inaccurate information about people, places, or
         facts.
       </p>

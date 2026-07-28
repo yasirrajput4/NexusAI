@@ -43,7 +43,6 @@ NexusAI proves that a full-featured, multi-session AI chat product can be built 
 
 | Feature              | Details                                                       |
 | -------------------- | ------------------------------------------------------------- |
-| AI autocomplete      | Groq-powered prompt suggestions as you type (800ms debounce)  |
 | Voice input (STT)    | Speech-to-text via Web Speech API (`webkitSpeechRecognition`) |
 | Text-to-speech (TTS) | Listen to any AI response via `window.speechSynthesis`        |
 | Groq inference       | Llama 3.3 70B Versatile — one of the fastest LLMs available   |
@@ -137,7 +136,7 @@ NexusAI/
 │   ├── hooks/
 │   │   ├── useThreads.js             # Thread CRUD + localStorage sync + auto-naming
 │   │   ├── useGroqAPI.js             # Groq API fetch wrapper with error state
-│   │   ├── useAutocomplete.js        # AI prompt suggestions with debounce + AbortController
+│   │   |
 │   │   └── useSpeechRecognition.js   # Web Speech API — start / stop / toggle
 │   │
 │   ├── utils/
