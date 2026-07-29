@@ -41,11 +41,10 @@ NexusAI proves that a full-featured, multi-session AI chat product can be built 
 
 ### AI & Voice
 
-| Feature              | Details                                                       |
-| -------------------- | ------------------------------------------------------------- |
-| Voice input (STT)    | Speech-to-text via Web Speech API (`webkitSpeechRecognition`) |
-| Text-to-speech (TTS) | Listen to any AI response via `window.speechSynthesis`        |
-| Groq inference       | Llama 3.3 70B Versatile — one of the fastest LLMs available   |
+| Feature | Details |
+| ------- | ------- |
+
+| Groq inference | Llama 3.3 70B Versatile — one of the fastest LLMs available |
 
 ### UI & Rendering
 
@@ -61,17 +60,16 @@ NexusAI proves that a full-featured, multi-session AI chat product can be built 
 
 ## Tech Stack
 
-| Layer               | Technology                                       |
-| ------------------- | ------------------------------------------------ |
-| Library             | React 19                                         |
-| Build Tool          | Vite 6                                           |
-| Styling             | Tailwind CSS v4                                  |
-| AI Inference        | Groq API — Llama 3.3 70B Versatile               |
-| Markdown            | react-markdown                                   |
-| Syntax Highlighting | react-syntax-highlighter                         |
-| Voice I/O           | Web Speech API (native browser, no external lib) |
-| Persistence         | localStorage                                     |
-| Deployment          | Vercel                                           |
+| Layer               | Technology                         |
+| ------------------- | ---------------------------------- |
+| Library             | React 19                           |
+| Build Tool          | Vite 6                             |
+| Styling             | Tailwind CSS v4                    |
+| AI Inference        | Groq API — Llama 3.3 70B Versatile |
+| Markdown            | react-markdown                     |
+| Syntax Highlighting | react-syntax-highlighter           |
+| Persistence         | localStorage                       |
+| Deployment          | Vercel                             |
 
 ---
 
@@ -136,8 +134,8 @@ NexusAI/
 │   ├── hooks/
 │   │   ├── useThreads.js             # Thread CRUD + localStorage sync + auto-naming
 │   │   ├── useGroqAPI.js             # Groq API fetch wrapper with error state
-│   │   |
-│   │   └── useSpeechRecognition.js   # Web Speech API — start / stop / toggle
+│   │
+│   │
 │   │
 │   ├── utils/
 │   │   └── threadUtils.js        # generateId, categorizeThreads, buildPayload, stripMarkdown

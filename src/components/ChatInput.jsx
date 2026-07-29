@@ -67,6 +67,7 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
         <div className="flex items-center gap-1.5 shrink-0 pb-0.5">
           {isSupported && (
             <button
+              type="button"
               onClick={toggleListening}
               disabled={isLoading}
               title={isListening ? "Stop recording" : "Voice input"}
@@ -96,6 +97,7 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
           )}
 
           <button
+            type="button"
             onClick={handleSubmit}
             disabled={!canSubmit}
             title="Send message"
