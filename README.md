@@ -12,7 +12,7 @@ Built with React 19 + Vite + Tailwind CSS v4, powered by Groq's ultra-fast Llama
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-6-646CFF?style=for-the-badge&logo=vite)](https://vitejs.dev)
 
-![NexusAI Screenshot](https://github.com/user-attachments/assets/a3931d74-7ecf-41a7-a048-6f8aa2474b64)
+![NexusAI Screenshot](https://github.com/user-attachments/assets/6e8d6bba-4dae-412a-b863-1e6647b7a06b)
 
 </div>
 
@@ -37,24 +37,23 @@ NexusAI proves that a full-featured, multi-session AI chat product can be built 
 | Multi-session threads    | Create, switch, rename, and delete independent conversations |
 | Auto-naming              | Thread titles auto-generated from the first user message     |
 | LocalStorage persistence | Full chat history survives page refreshes — zero backend     |
-| Time-categorized sidebar | Grouped by Today, Yesterday, Last 7 Days, Last 30 Days       |
 
-### AI & Voice
-
-| Feature | Details |
-| ------- | ------- |
-
-| Groq inference | Llama 3.3 70B Versatile — one of the fastest LLMs available |
-
-### UI & Rendering
+### AI & Rendering
 
 | Feature                 | Details                                                            |
 | ----------------------- | ------------------------------------------------------------------ |
+| Groq inference          | Llama 3.3 70B Versatile — one of the fastest LLMs available        |
 | Rich Markdown rendering | Lists, tables, blockquotes, bold, inline code via `react-markdown` |
 | Code blocks             | Language label header + one-click copy button                      |
 | Syntax highlighting     | VSCode Dark+ theme via `react-syntax-highlighter`                  |
 | Skeleton loading        | Animated typing indicator while awaiting API response              |
-| Fully responsive        | Mobile sidebar drawer + desktop persistent layout                  |
+
+### UI
+
+| Feature             | Details                                              |
+| ------------------- | ---------------------------------------------------- |
+| Minimal chat layout | Clean centered input on empty threads, ChatGPT-style |
+| Fully responsive    | Mobile sidebar drawer + desktop persistent layout    |
 
 ---
 
@@ -124,52 +123,31 @@ npm run preview   # optional: preview the production build locally
 NexusAI/
 ├── src/
 │   ├── components/
-│   │   ├── Sidebar.jsx           # Thread list, new chat, rename, delete, clear all
-│   │   ├── ChatWindow.jsx        # Main chat area — header, scroll, empty state layout
-│   │   ├── MessageBubble.jsx     # User / AI / Error bubbles with TTS + copy
-│   │   ├── ChatInput.jsx         # Auto-resize input, AI autocomplete, voice mic, send
-│   │   ├── CodeBlock.jsx         # Code renderer with language badge + copy button
-│   │   └── EmptyState.jsx        # Centered hero shown on new/empty threads
+│   │   ├── Sidebar.jsx        # Thread list, new chat, rename, delete, clear all
+│   │   ├── ChatWindow.jsx     # Main chat area — header, scroll, empty state layout
+│   │   ├── MessageBubble.jsx  # User / AI / Error bubbles with copy button
+│   │   ├── ChatInput.jsx      # Auto-resize input with send button
+│   │   ├── CodeBlock.jsx      # Code renderer with language badge + copy button
+│   │   └── EmptyState.jsx     # Centered hero shown on new/empty threads
 │   │
 │   ├── hooks/
-│   │   ├── useThreads.js             # Thread CRUD + localStorage sync + auto-naming
-│   │   ├── useGroqAPI.js             # Groq API fetch wrapper with error state
-│   │
-│   │
+│   │   ├── useThreads.js      # Thread CRUD + localStorage sync + auto-naming
+│   │   └── useGroqAPI.js      # Groq API fetch wrapper with error state
 │   │
 │   ├── utils/
-│   │   └── threadUtils.js        # generateId, categorizeThreads, buildPayload,
+│   │   └── threadUtils.js     # generateId, createThread, loadThreads, saveThreads
 │   │
-│   ├── constants.js              # API config, storage keys
-│   ├── App.jsx                   # Root component — wires all hooks and layouts
-│   ├── main.jsx                  # React entry point
-│   └── index.css                 # Global styles, Tailwind, custom animations
+│   ├── constants.js           # API config, storage keys
+│   ├── App.jsx                # Root component — wires all hooks and layouts
+│   ├── main.jsx               # React entry point
+│   └── index.css              # Global styles, Tailwind, custom animations
 │
-├── .env.local                    # Your API key (never commit)
+├── .env.local                 # Your API key (never commit)
 ├── .gitignore
 ├── index.html
 ├── package.json
+└── README.md
 ```
-
----
-
-## How AI Autocomplete Works
-
-As you type a prompt, `useAutocomplete` waits 800ms after you stop typing, then sends your partial input to Groq and returns 3 contextual completions in a dropdown.
-
-```
-User types → 800ms debounce → Groq API call → 3 suggestions rendered
-                                    ↑
-                          AbortController cancels
-                          any previous in-flight request
-```
-
-**Keyboard shortcuts:**
-
-- `Tab` — select the first suggestion
-- `↑ ↓` — navigate between suggestions
-- `Escape` — dismiss the dropdown
-- `Click` — select any suggestion
 
 ---
 
@@ -178,8 +156,6 @@ User types → 800ms debounce → Groq API call → 3 suggestions rendered
 | Tradeoff           | Details                                                                         |
 | ------------------ | ------------------------------------------------------------------------------- |
 | API key in browser | Exposed via `VITE_` prefix. Fine for demos; use a backend proxy for production. |
-| Voice input        | Requires HTTPS or `localhost` — won't work on plain HTTP.                       |
-| TTS voice quality  | Depends on the user's OS and installed system voices.                           |
 | Rate limits        | Groq free tier is generous for personal use, not for high-traffic production.   |
 | No auth            | All threads are local to the browser — no user accounts or sync across devices. |
 
@@ -188,8 +164,10 @@ User types → 800ms debounce → Groq API call → 3 suggestions rendered
 ## Roadmap
 
 - [x] Multi-session thread management
-- [x] Voice input & text-to-speech
-- [x] AI-powered autocomplete suggestions
+- [x] LocalStorage persistence
+- [x] Markdown + syntax highlighting
+- [x] Skeleton loading
+- [x] Responsive layout
 - [ ] Streaming responses (token-by-token rendering)
 - [ ] Backend proxy for secure API key handling
 - [ ] Export chat as Markdown or PDF
