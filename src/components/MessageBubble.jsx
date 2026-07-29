@@ -1,12 +1,14 @@
 import { useState, useCallback } from "react";
 import ReactMarkdown from "react-markdown";
 import { CodeBlock } from "./CodeBlock";
+import { stripMarkdown } from "../utils/threadUtils";
 
 function CopyMessageButton({ text }) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(text).then(() => {
+    const plainText = stripMarkdown(text);
+    navigator.clipboard.writeText(plainText).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });

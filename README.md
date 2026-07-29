@@ -135,7 +135,7 @@ NexusAI/
 │   │   └── useGroqAPI.js      # Groq API fetch wrapper with error state
 │   │
 │   ├── utils/
-│   │   └── threadUtils.js     # generateId, createThread, loadThreads, saveThreads
+│   │   └── threadUtils.js     # generateId, createThread, loadThreads, saveThreads, stripMarkdown
 │   │
 │   ├── constants.js           # API config, storage keys
 │   ├── App.jsx                # Root component — wires all hooks and layouts
