@@ -40,6 +40,7 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Ask anything — press Enter to send, Shift+Enter for new line"
+          aria-label="Chat message input"
           disabled={isLoading || disabled}
           rows={1}
           className="flex-1 bg-transparent text-base text-zinc-100 placeholder:text-zinc-600 resize-none outline-none leading-relaxed max-h-48 min-h-[28px] py-0.5 disabled:opacity-50"
