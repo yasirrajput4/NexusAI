@@ -18,44 +18,35 @@ function ThreadItem({ thread, isActive, onSelect, onDelete, onRename }) {
     }
   };
 
-  const handleItemKeyDown = (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      if (!isEditing) onSelect(thread.id);
-    }
-  };
-
   return (
     <div
-      role="button"
-      tabIndex={0}
-      aria-label={`Conversation: ${thread.title}`}
-      className={`group relative flex items-center gap-2 rounded-lg px-3 py-2 cursor-pointer transition-all duration-150 ${
+      className={`group relative flex items-center gap-2 rounded-lg px-3 py-2 transition-colors duration-150 ${
         isActive
           ? "bg-violet-600/20 text-violet-200 border border-violet-500/30"
           : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200 border border-transparent"
       }`}
-      onClick={() => !isEditing && onSelect(thread.id)}
-      onKeyDown={handleItemKeyDown}
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => setShowActions(false)}
     >
-      <svg
-        className="w-4 h-4 shrink-0 opacity-60"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-        />
-      </svg>
-
+      {/* If editing, take up the row space with form/input */}
       {isEditing ? (
-        <form onSubmit={handleRenameSubmit} className="flex-1 min-w-0">
+        <form
+          onSubmit={handleRenameSubmit}
+          className="flex-1 min-w-0 flex items-center gap-2"
+        >
+          <svg
+            className="w-4 h-4 shrink-0 opacity-60"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+            />
+          </svg>
           <input
             autoFocus
             value={editValue}
@@ -64,66 +55,84 @@ function ThreadItem({ thread, isActive, onSelect, onDelete, onRename }) {
             onBlur={handleRenameSubmit}
             aria-label="Edit conversation title"
             className="w-full bg-zinc-700 text-zinc-100 text-sm px-2 py-0.5 rounded outline-none border border-violet-500"
-            onClick={(e) => e.stopPropagation()}
           />
         </form>
       ) : (
-        <span className="flex-1 min-w-0 truncate text-sm leading-5">
-          {thread.title}
-        </span>
-      )}
+        <>
+          {/* Native button acting as the selectable row item to avoid nesting & accessibility issues */}
+          <button
+            type="button"
+            onClick={() => onSelect(thread.id)}
+            className="flex-1 flex items-center gap-2 text-left min-w-0 bg-transparent outline-none cursor-pointer"
+          >
+            <svg
+              className="w-4 h-4 shrink-0 opacity-60"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+              />
+            </svg>
+            <span className="flex-1 min-w-0 truncate text-sm leading-5">
+              {thread.title}
+            </span>
+          </button>
 
-      {!isEditing && (showActions || isActive) && (
-        <div
-          className="flex items-center gap-1 shrink-0"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <button
-            type="button"
-            title="Rename"
-            aria-label="Rename conversation"
-            onClick={() => {
-              setEditValue(thread.title);
-              setIsEditing(true);
-            }}
-            className="p-1 rounded hover:bg-zinc-700 text-zinc-500 hover:text-zinc-300 transition-colors"
-          >
-            <svg
-              className="w-3.5 h-3.5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-              />
-            </svg>
-          </button>
-          <button
-            type="button"
-            title="Delete"
-            aria-label="Delete conversation"
-            onClick={() => onDelete(thread.id)}
-            className="p-1 rounded hover:bg-red-500/20 text-zinc-500 hover:text-red-400 transition-colors"
-          >
-            <svg
-              className="w-3.5 h-3.5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-              />
-            </svg>
-          </button>
-        </div>
+          {(showActions || isActive) && (
+            <div className="flex items-center gap-1 shrink-0">
+              <button
+                type="button"
+                title="Rename"
+                aria-label="Rename conversation"
+                onClick={() => {
+                  setEditValue(thread.title);
+                  setIsEditing(true);
+                }}
+                className="p-1 rounded hover:bg-zinc-700 text-zinc-500 hover:text-zinc-300 transition-colors"
+              >
+                <svg
+                  className="w-3.5 h-3.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                  />
+                </svg>
+              </button>
+              <button
+                type="button"
+                title="Delete"
+                aria-label="Delete conversation"
+                onClick={() => onDelete(thread.id)}
+                className="p-1 rounded hover:bg-red-500/20 text-zinc-500 hover:text-red-400 transition-colors"
+              >
+                <svg
+                  className="w-3.5 h-3.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                  />
+                </svg>
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
@@ -145,15 +154,11 @@ export function Sidebar({
   return (
     <>
       {isOpen && (
-        <div
-          role="button"
-          tabIndex={0}
+        <button
+          type="button"
           aria-label="Close sidebar overlay"
-          className="fixed inset-0 bg-black/50 z-20 lg:hidden"
+          className="fixed inset-0 bg-black/50 z-20 lg:hidden border-none cursor-default"
           onClick={onClose}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") onClose();
-          }}
         />
       )}
 
@@ -211,7 +216,7 @@ export function Sidebar({
           <button
             type="button"
             onClick={onNewChat}
-            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-500 active:bg-violet-700 text-white text-sm font-medium transition-all duration-150 shadow-lg shadow-violet-900/30"
+            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-500 active:bg-violet-700 text-white text-sm font-medium transition-colors shadow-lg shadow-violet-900/30"
           >
             <svg
               className="w-4 h-4"
@@ -274,7 +279,7 @@ export function Sidebar({
         <div className="border-t border-zinc-800/60 p-3 space-y-2">
           {threads.length > 0 &&
             (showClearConfirm ? (
-              <div className="bg-red-950/40 border border-red-800/40 rounded-lg p-3">
+              <div className="bg-red-950/40 border border-8-800/40 rounded-lg p-3">
                 <p className="text-xs text-red-300 mb-2">
                   Delete all {threads.length} conversation
                   {threads.length > 1 ? "s" : ""}?
@@ -303,7 +308,7 @@ export function Sidebar({
               <button
                 type="button"
                 onClick={() => setShowClearConfirm(true)}
-                className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-zinc-500 hover:text-red-400 hover:bg-red-950/30 text-xs transition-all duration-150"
+                className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-zinc-500 hover:text-red-400 hover:bg-red-950/30 text-xs transition-colors"
               >
                 <svg
                   className="w-3.5 h-3.5"
