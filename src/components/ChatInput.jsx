@@ -1,17 +1,8 @@
 import { useState, useRef, useCallback, useEffect } from "react";
-import { useSpeechRecognition } from "../hooks/useSpeechRecognition";
 
 export function ChatInput({ onSubmit, isLoading, disabled }) {
   const [value, setValue] = useState("");
   const textareaRef = useRef(null);
-
-  const handleTranscript = useCallback((transcript) => {
-    setValue((prev) => (prev ? prev + " " + transcript : transcript));
-    textareaRef.current?.focus();
-  }, []);
-
-  const { isListening, isSupported, toggleListening } =
-    useSpeechRecognition(handleTranscript);
 
   useEffect(() => {
     const ta = textareaRef.current;
@@ -42,60 +33,19 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
 
   return (
     <div className="px-4 pb-5 pt-3">
-      <div
-        className={`relative flex items-end gap-2 bg-zinc-800/80 border rounded-2xl px-3 py-3 shadow-xl shadow-black/30 backdrop-blur-sm transition-all duration-200 ${
-          isListening
-            ? "border-red-500/60 shadow-red-900/20"
-            : "border-zinc-700/60 focus-within:border-violet-500/60 focus-within:shadow-violet-900/20"
-        }`}
-      >
+      <div className="relative flex items-end gap-2 bg-zinc-800/80 border border-zinc-700/60 focus-within:border-violet-500/60 focus-within:shadow-violet-950/20 rounded-2xl px-3 py-3 shadow-xl shadow-black/30 backdrop-blur-sm transition-all duration-200">
         <textarea
           ref={textareaRef}
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder={
-            isListening
-              ? "Listening… speak your prompt"
-              : "Ask anything — press Enter to send, Shift+Enter for new line"
-          }
+          placeholder="Ask anything — press Enter to send, Shift+Enter for new line"
           disabled={isLoading || disabled}
           rows={1}
           className="flex-1 bg-transparent text-base text-zinc-100 placeholder:text-zinc-600 resize-none outline-none leading-relaxed max-h-48 min-h-[28px] py-0.5 disabled:opacity-50"
         />
 
         <div className="flex items-center gap-1.5 shrink-0 pb-0.5">
-          {isSupported && (
-            <button
-              type="button"
-              onClick={toggleListening}
-              disabled={isLoading}
-              title={isListening ? "Stop recording" : "Voice input"}
-              className={`relative p-2 rounded-xl transition-all duration-200 ${
-                isListening
-                  ? "bg-red-600 text-white shadow-lg shadow-red-900/40"
-                  : "text-zinc-500 hover:text-zinc-200 hover:bg-zinc-700/60"
-              }`}
-            >
-              {isListening && (
-                <span className="absolute inset-0 rounded-xl bg-red-500/40 recording-pulse" />
-              )}
-              <svg
-                className="w-4 h-4 relative z-10"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M12 18.5V21m-4 0h8m-4-15a3 3 0 016 0v6a3 3 0 01-6 0V6z"
-                />
-              </svg>
-            </button>
-          )}
-
           <button
             type="button"
             onClick={handleSubmit}

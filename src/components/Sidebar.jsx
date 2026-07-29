@@ -18,14 +18,25 @@ function ThreadItem({ thread, isActive, onSelect, onDelete, onRename }) {
     }
   };
 
+  const handleItemKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      if (!isEditing) onSelect(thread.id);
+    }
+  };
+
   return (
     <div
+      role="button"
+      tabIndex={0}
+      aria-label={`Conversation: ${thread.title}`}
       className={`group relative flex items-center gap-2 rounded-lg px-3 py-2 cursor-pointer transition-all duration-150 ${
         isActive
           ? "bg-violet-600/20 text-violet-200 border border-violet-500/30"
           : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200 border border-transparent"
       }`}
       onClick={() => !isEditing && onSelect(thread.id)}
+      onKeyDown={handleItemKeyDown}
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => setShowActions(false)}
     >
@@ -51,6 +62,7 @@ function ThreadItem({ thread, isActive, onSelect, onDelete, onRename }) {
             onChange={(e) => setEditValue(e.target.value)}
             onKeyDown={handleKeyDown}
             onBlur={handleRenameSubmit}
+            aria-label="Edit conversation title"
             className="w-full bg-zinc-700 text-zinc-100 text-sm px-2 py-0.5 rounded outline-none border border-violet-500"
             onClick={(e) => e.stopPropagation()}
           />
@@ -69,6 +81,7 @@ function ThreadItem({ thread, isActive, onSelect, onDelete, onRename }) {
           <button
             type="button"
             title="Rename"
+            aria-label="Rename conversation"
             onClick={() => {
               setEditValue(thread.title);
               setIsEditing(true);
@@ -92,6 +105,7 @@ function ThreadItem({ thread, isActive, onSelect, onDelete, onRename }) {
           <button
             type="button"
             title="Delete"
+            aria-label="Delete conversation"
             onClick={() => onDelete(thread.id)}
             className="p-1 rounded hover:bg-red-500/20 text-zinc-500 hover:text-red-400 transition-colors"
           >
@@ -132,8 +146,14 @@ export function Sidebar({
     <>
       {isOpen && (
         <div
+          role="button"
+          tabIndex={0}
+          aria-label="Close sidebar overlay"
           className="fixed inset-0 bg-black/50 z-20 lg:hidden"
           onClick={onClose}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") onClose();
+          }}
         />
       )}
 
@@ -167,6 +187,7 @@ export function Sidebar({
           <button
             type="button"
             onClick={onClose}
+            aria-label="Close sidebar"
             className="lg:hidden p-1 rounded text-zinc-500 hover:text-zinc-300"
           >
             <svg
@@ -209,7 +230,7 @@ export function Sidebar({
           </button>
         </div>
 
-        {/* Thread list — plain, no time categories */}
+        {/* Thread list */}
         <div className="flex-1 overflow-y-auto px-3 pb-2">
           {threads.length === 0 ? (
             <div className="text-center py-10">
