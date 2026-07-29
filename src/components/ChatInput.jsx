@@ -33,7 +33,7 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
 
   return (
     <div className="px-4 pb-5 pt-3">
-      <div className="relative flex items-end gap-2 bg-zinc-800/80 border border-zinc-700/60 focus-within:border-violet-500/60 focus-within:shadow-violet-950/20 rounded-2xl px-3 py-3 shadow-xl shadow-black/30 backdrop-blur-sm transition-all duration-200">
+      <div className="relative flex items-end gap-2 bg-zinc-800/80 border border-zinc-700/60 focus-within:border-violet-500/60 focus-within:shadow-violet-950/20 rounded-2xl px-3 py-3 shadow-xl shadow-black/30 backdrop-blur-sm transition-colors duration-200">
         <textarea
           ref={textareaRef}
           value={value}

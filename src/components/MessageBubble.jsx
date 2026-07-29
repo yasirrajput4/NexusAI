@@ -17,7 +17,7 @@ function CopyMessageButton({ text }) {
       type="button"
       onClick={handleCopy}
       title="Copy message"
-      className="p-1.5 rounded-lg text-zinc-600 hover:text-zinc-300 hover:bg-zinc-700/60 transition-all duration-150"
+      className="p-1.5 rounded-lg text-zinc-600 hover:text-zinc-300 hover:bg-zinc-700/60 transition-colors duration-150"
     >
       {copied ? (
         <svg
