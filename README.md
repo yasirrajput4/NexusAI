@@ -138,7 +138,7 @@ NexusAI/
 │   │
 │   │
 │   ├── utils/
-│   │   └── threadUtils.js        # generateId, categorizeThreads, buildPayload, stripMarkdown
+│   │   └── threadUtils.js        # generateId, categorizeThreads, buildPayload,
 │   │
 │   ├── constants.js              # API config, storage keys
 │   ├── App.jsx                   # Root component — wires all hooks and layouts
