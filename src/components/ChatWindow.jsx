@@ -106,8 +106,7 @@ export function ChatWindow({
             <div className="max-w-3xl mx-auto w-full py-4">
               {activeThread.messages.map((message, index) => (
                 <MessageBubble
-                  // Using unique id for stable keys
-                  key={message.id}
+                  key={message.id || `msg_${index}`}
                   message={message}
                   isLast={index === activeThread.messages.length - 1}
                 />

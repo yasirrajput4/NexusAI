@@ -140,7 +140,7 @@ export function MessageBubble({ message }) {
             {message.text}
           </ReactMarkdown>
         </div>
-        <div className="flex items-center gap-1 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+        <div className="flex items-center gap-1 mt-2">
           <CopyMessageButton text={message.text} />
         </div>
       </div>
