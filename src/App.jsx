@@ -3,6 +3,7 @@ import { Sidebar } from "./components/Sidebar";
 import { ChatWindow } from "./components/ChatWindow";
 import { useThreads } from "./hooks/useThreads";
 import { useGroqAPI } from "./hooks/useGroqAPI";
+
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -51,11 +52,11 @@ function App() {
       const userMessage = { role: "user", text };
       addMessage(userMessage);
 
+      // Include the new user message in the history sent to the API
       const history = [...(thread?.messages || []), userMessage];
 
       try {
-        const responseText = await sendMessage(history, null);
-
+        const responseText = await sendMessage(history);
         if (responseText) {
           addMessage({ role: "model", text: responseText });
         }

@@ -5,7 +5,7 @@ export function useGroqAPI() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const sendMessage = useCallback(async (messages, onChunk) => {
+  const sendMessage = useCallback(async (messages) => {
     setIsLoading(true);
     setError(null);
 
@@ -45,8 +45,6 @@ export function useGroqAPI() {
       const text = data?.choices?.[0]?.message?.content || "";
 
       if (!text) throw new Error("Empty response from Groq API");
-
-      if (onChunk) onChunk(text);
 
       return text;
     } catch (err) {

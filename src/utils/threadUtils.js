@@ -55,17 +55,3 @@ export function saveActiveThreadId(id) {
     localStorage.removeItem(ACTIVE_THREAD_KEY);
   }
 }
-export function stripMarkdown(text) {
-  return text
-    .replace(/```[\s\S]*?```/g, " code block ")
-    .replace(/`([^`]+)`/g, "$1")
-    .replace(/\*\*([^*]+)\*\*/g, "$1")
-    .replace(/\*([^*]+)\*/g, "$1")
-    .replace(/#{1,6}\s+/g, "")
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
-    .replace(/^\s*[-*+]\s+/gm, "")
-    .replace(/^\s*\d+\.\s+/gm, "")
-    .replace(/>\s+/g, "")
-    .replace(/\n+/g, " ")
-    .trim();
-}

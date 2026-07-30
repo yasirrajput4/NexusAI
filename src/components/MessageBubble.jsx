@@ -1,14 +1,28 @@
 import { useState, useCallback } from "react";
 import ReactMarkdown from "react-markdown";
 import { CodeBlock } from "./CodeBlock";
-import { stripMarkdown } from "../utils/threadUtils";
+
+// Inline — stripMarkdown no longer lives in threadUtils
+function stripMarkdown(text) {
+  return text
+    .replace(/```[\s\S]*?```/g, "")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/\*([^*]+)\*/g, "$1")
+    .replace(/#{1,6}\s+/g, "")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/^\s*[-*+]\s+/gm, "")
+    .replace(/^\s*\d+\.\s+/gm, "")
+    .replace(/>\s+/g, "")
+    .replace(/\n+/g, " ")
+    .trim();
+}
 
 function CopyMessageButton({ text }) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = useCallback(() => {
-    const plainText = stripMarkdown(text);
-    navigator.clipboard.writeText(plainText).then(() => {
+    navigator.clipboard.writeText(stripMarkdown(text)).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
@@ -140,7 +154,7 @@ export function MessageBubble({ message }) {
             {message.text}
           </ReactMarkdown>
         </div>
-        <div className="flex items-center gap-1 mt-2">
+        <div className="flex items-center gap-1 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
           <CopyMessageButton text={message.text} />
         </div>
       </div>
