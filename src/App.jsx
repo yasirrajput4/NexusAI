@@ -62,7 +62,7 @@ function App() {
       } catch (err) {
         const errMsg = err.message || "Something went wrong.";
         addMessage({ role: "error", text: errMsg });
-        clearError(); 
+        clearError();
       }
     },
     [activeThread, createNewThread, addMessage, sendMessage, clearError],
