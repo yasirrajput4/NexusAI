@@ -104,7 +104,7 @@ export function ChatWindow({
         <>
           <div className="flex-1 overflow-y-auto chat-scroll">
             <div className="max-w-3xl mx-auto w-full py-4">
-              {activeThread.messages.map((message) => (
+              {activeThread.messages.map((message, index) => (
                 <MessageBubble
                   key={message.id}
                   message={message}
