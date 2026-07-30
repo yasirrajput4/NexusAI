@@ -8,8 +8,22 @@ import {
   autoNameThread,
 } from "../utils/threadUtils";
 
+function migrateMessages(threads) {
+  return threads.map((thread) => ({
+    ...thread,
+    messages: thread.messages.map((msg) =>
+      msg.id
+        ? msg
+        : {
+            ...msg,
+            id: `msg_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+          },
+    ),
+  }));
+}
+
 export function useThreads() {
-  const [threads, setThreads] = useState(() => loadThreads());
+  const [threads, setThreads] = useState(() => migrateMessages(loadThreads()));
   const [activeThreadId, setActiveThreadId] = useState(() => {
     const savedId = loadActiveThreadId();
     const allThreads = loadThreads();
@@ -40,18 +54,12 @@ export function useThreads() {
 
   const deleteThread = useCallback(
     (threadId) => {
-      // 1. Calculate the new threads array first
       const updatedThreads = threads.filter((t) => t.id !== threadId);
       setThreads(updatedThreads);
-
-      // 2. Perform the side effect (updating the active thread ID)
-      // outside the setThreads callback.
       if (threadId === activeThreadId) {
-        if (updatedThreads.length > 0) {
-          setActiveThreadId(updatedThreads[0].id);
-        } else {
-          setActiveThreadId(null);
-        }
+        setActiveThreadId(
+          updatedThreads.length > 0 ? updatedThreads[0].id : null,
+        );
       }
     },
     [threads, activeThreadId],
