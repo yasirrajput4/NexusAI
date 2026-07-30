@@ -104,9 +104,9 @@ export function ChatWindow({
         <>
           <div className="flex-1 overflow-y-auto chat-scroll">
             <div className="max-w-3xl mx-auto w-full py-4">
-              {activeThread.messages.map((message, index) => (
+              {activeThread.messages.map((message) => (
                 <MessageBubble
-                  key={`${message.role}-${index}`}
+                  key={message.id}
                   message={message}
                   isLast={index === activeThread.messages.length - 1}
                 />

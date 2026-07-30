@@ -67,19 +67,22 @@ export function useThreads() {
     (message) => {
       if (!activeThreadId) return;
 
+      const messageWithId = {
+        ...message,
+        id: `msg_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+      };
+
       setThreads((prev) =>
         prev.map((thread) => {
           if (thread.id !== activeThreadId) return thread;
-
           const isFirstUserMessage =
-            message.role === "user" && thread.messages.length === 0;
-
+            messageWithId.role === "user" && thread.messages.length === 0;
           return {
             ...thread,
             title: isFirstUserMessage
-              ? autoNameThread(message.text)
+              ? autoNameThread(messageWithId.text)
               : thread.title,
-            messages: [...thread.messages, message],
+            messages: [...thread.messages, messageWithId],
             updatedAt: Date.now(),
           };
         }),
