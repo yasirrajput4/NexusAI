@@ -6,7 +6,7 @@
 
 Built with React 19 + Vite + Tailwind CSS v4, powered by Groq's ultra-fast Llama 3.3 70B inference.
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black?style=for-the-badge&logo=vercel)](https://nexus-ai-five-wine.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black?style=for-the-badge&logo=vercel)](https://nexus-ai-yasir.vercel.app)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/yasirrajput4/NexusAI)
 [![License](https://img.shields.io/badge/License-MIT-violet?style=for-the-badge)](./LICENSE)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)](https://react.dev)
@@ -192,7 +192,7 @@ This project is licensed under the [MIT License](./LICENSE).
 <div align="center">
   <p>Built by <a href="https://github.com/yasirrajput4">Yasir Rajput</a></p>
   <p>
-    <a href="https://nexus-ai-five-wine.vercel.app">Live Demo</a> ·
+    <a href="https://nexus-ai-yasir.vercel.app">Live Demo</a> ·
     <a href="https://github.com/yasirrajput4/NexusAI/issues">Report Bug</a> ·
     <a href="https://github.com/yasirrajput4/NexusAI/issues">Request Feature</a>
   </p>
