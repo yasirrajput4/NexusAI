@@ -43,7 +43,7 @@ export function ChatInput({ onSubmit, isLoading, disabled }) {
           aria-label="Chat message input"
           disabled={isLoading || disabled}
           rows={1}
-          className="flex-1 bg-transparent text-base text-zinc-100 placeholder:text-zinc-600 resize-none outline-none leading-relaxed max-h-48 min-h-[28px] py-0.5 disabled:opacity-50"
+          className="flex-1 bg-transparent text-base text-zinc-100 placeholder:text-zinc-600 resize-none outline-none leading-relaxed max-h-48 min-h-7 py-0.5 disabled:opacity-50"
         />
 
         <div className="flex items-center gap-1.5 shrink-0 pb-0.5">

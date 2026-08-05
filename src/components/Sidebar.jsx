@@ -170,7 +170,7 @@ export function Sidebar({
         {/* Brand */}
         <div className="flex items-center justify-between px-4 py-4 border-b border-zinc-800/60">
           <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-600 to-purple-700 flex items-center justify-center shadow-lg">
+            <div className="w-7 h-7 rounded-lg bg-linear-to-br from-violet-600 to-purple-700 flex items-center justify-center shadow-lg">
               <svg
                 className="w-4 h-4 text-white"
                 fill="none"
@@ -327,7 +327,7 @@ export function Sidebar({
               </button>
             ))}
           <div className="flex items-center gap-2 px-3 py-1.5">
-            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-[10px] text-white font-semibold">
+            <div className="w-6 h-6 rounded-full bg-linear-to-br from-violet-500 to-purple-600 flex items-center justify-center text-[10px] text-white font-semibold">
               U
             </div>
             <span className="text-xs text-zinc-500">Llama 3.3</span>
