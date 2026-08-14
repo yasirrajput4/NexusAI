@@ -100,7 +100,7 @@ export function ChatWindow({
           </div>
         </div>
       ) : (
-        /* ACTIVE CHAT */
+        /*  ACTIVE CHAT  */
         <>
           <div className="flex-1 overflow-y-auto chat-scroll">
             <div className="max-w-3xl mx-auto w-full py-4">
