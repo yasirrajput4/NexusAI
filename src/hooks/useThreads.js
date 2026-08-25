@@ -99,26 +99,6 @@ export function useThreads() {
     [activeThreadId],
   );
 
-  const updateLastMessage = useCallback(
-    (updater) => {
-      if (!activeThreadId) return;
-
-      setThreads((prev) =>
-        prev.map((thread) => {
-          if (thread.id !== activeThreadId) return thread;
-          if (thread.messages.length === 0) return thread;
-
-          const messages = [...thread.messages];
-          const last = messages[messages.length - 1];
-          messages[messages.length - 1] = updater(last);
-
-          return { ...thread, messages, updatedAt: Date.now() };
-        }),
-      );
-    },
-    [activeThreadId],
-  );
-
   const renameThread = useCallback((threadId, newTitle) => {
     setThreads((prev) =>
       prev.map((t) => (t.id === threadId ? { ...t, title: newTitle } : t)),
@@ -134,7 +114,6 @@ export function useThreads() {
     deleteThread,
     clearAllThreads,
     addMessage,
-    updateLastMessage,
     renameThread,
   };
 }
