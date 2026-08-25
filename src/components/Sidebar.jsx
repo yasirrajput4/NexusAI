@@ -28,7 +28,6 @@ function ThreadItem({ thread, isActive, onSelect, onDelete, onRename }) {
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => setShowActions(false)}
     >
-      {/* If editing, take up the row space with form/input */}
       {isEditing ? (
         <form
           onSubmit={handleRenameSubmit}
@@ -59,7 +58,6 @@ function ThreadItem({ thread, isActive, onSelect, onDelete, onRename }) {
         </form>
       ) : (
         <>
-          {/* Native button acting as the selectable row item to avoid nesting & accessibility issues */}
           <button
             type="button"
             onClick={() => onSelect(thread.id)}
@@ -279,7 +277,7 @@ export function Sidebar({
         <div className="border-t border-zinc-800/60 p-3 space-y-2">
           {threads.length > 0 &&
             (showClearConfirm ? (
-              <div className="bg-red-950/40 border border-zinc-800/40 rounded-lg p-3">
+              <div className="bg-red-950/40 border border-red-800/40 rounded-lg p-3">
                 <p className="text-xs text-red-300 mb-2">
                   Delete all {threads.length} conversation
                   {threads.length > 1 ? "s" : ""}?
