@@ -2,9 +2,9 @@
 
 # NexusAI
 
-### A production-grade AI chat platform — fully frontend, zero backend.
+### An AI chat platform — fully frontend, zero backend.
 
-Built with React 19 + Vite + Tailwind CSS v4, powered by Groq's ultra-fast GPT-OSS 120B inference.
+Built with React 19 + Vite 6 + Tailwind CSS v4, powered by Groq's ultra-fast GPT-OSS 120B inference.
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black?style=for-the-badge&logo=vercel)](https://nexus-ai-yasir.vercel.app)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/yasirrajput4/NexusAI)
