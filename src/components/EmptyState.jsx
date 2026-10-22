@@ -23,8 +23,8 @@ export function EmptyState() {
       </h1>
       <p className="text-base text-zinc-400 max-w-md leading-relaxed">
         Powered by{" "}
-        <span className="text-violet-400 font-semibold">Llama 3.3</span> (70B
-        Versatile). Ask anything — from code to creative writing.
+        <span className="text-violet-400 font-semibold">GPT-OSS 120B</span> via
+        Groq. Ask anything — from code to creative writing.
       </p>
     </div>
   );

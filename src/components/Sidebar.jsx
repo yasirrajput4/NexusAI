@@ -328,7 +328,7 @@ export function Sidebar({
             <div className="w-6 h-6 rounded-full bg-linear-to-br from-violet-500 to-purple-600 flex items-center justify-center text-[10px] text-white font-semibold">
               U
             </div>
-            <span className="text-xs text-zinc-500">Llama 3.3</span>
+            <span className="text-xs text-zinc-500">GPT-OSS 120B</span>
             <div className="ml-auto w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
           </div>
         </div>

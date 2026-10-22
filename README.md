@@ -4,7 +4,7 @@
 
 ### A production-grade AI chat platform — fully frontend, zero backend.
 
-Built with React 19 + Vite + Tailwind CSS v4, powered by Groq's ultra-fast Llama 3.3 70B inference.
+Built with React 19 + Vite + Tailwind CSS v4, powered by Groq's ultra-fast GPT-OSS 120B inference.
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black?style=for-the-badge&logo=vercel)](https://nexus-ai-yasir.vercel.app)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/yasirrajput4/NexusAI)
@@ -42,7 +42,7 @@ NexusAI proves that a full-featured, multi-session AI chat product can be built 
 
 | Feature                 | Details                                                            |
 | ----------------------- | ------------------------------------------------------------------ |
-| Groq inference          | Llama 3.3 70B Versatile — one of the fastest LLMs available        |
+| Groq inference          | GPT-OSS 120B via Groq — ultra-fast LLM inference                   |
 | Rich Markdown rendering | Lists, tables, blockquotes, bold, inline code via `react-markdown` |
 | Code blocks             | Language label header + one-click copy button                      |
 | Syntax highlighting     | VSCode Dark+ theme via `react-syntax-highlighter`                  |
@@ -59,16 +59,16 @@ NexusAI proves that a full-featured, multi-session AI chat product can be built 
 
 ## Tech Stack
 
-| Layer               | Technology                         |
-| ------------------- | ---------------------------------- |
-| Library             | React 19                           |
-| Build Tool          | Vite 6                             |
-| Styling             | Tailwind CSS v4                    |
-| AI Inference        | Groq API — Llama 3.3 70B Versatile |
-| Markdown            | react-markdown                     |
-| Syntax Highlighting | react-syntax-highlighter           |
-| Persistence         | localStorage                       |
-| Deployment          | Vercel                             |
+| Layer               | Technology               |
+| ------------------- | ------------------------ |
+| Library             | React 19                 |
+| Build Tool          | Vite 6                   |
+| Styling             | Tailwind CSS v4          |
+| AI Inference        | Groq API — GPT-OSS 120B  |
+| Markdown            | react-markdown           |
+| Syntax Highlighting | react-syntax-highlighter |
+| Persistence         | localStorage             |
+| Deployment          | Vercel                   |
 
 ---
 
