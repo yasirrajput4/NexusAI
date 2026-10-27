@@ -74,8 +74,6 @@ function App() {
       try {
         const currentMessages = [...(thread.messages || []), userMessage];
         const data = await sendMessage(thread._id, currentMessages);
-
-        // Update UI with AI response + optional new title
         updateThreadAfterChat(thread._id, null, data.message, data.title);
       } catch (err) {
         const errMessage = {
@@ -89,12 +87,13 @@ function App() {
     [activeThread, createNewThread, sendMessage, updateThreadAfterChat],
   );
 
-  // Show loading screen while verifying token
+  // Loading screen while verifying token
   if (authLoading) {
     return (
       <div className="min-h-screen bg-zinc-950 flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-linear-to-br from-violet-600 to-purple-700 flex items-center justify-center">
+          {/* Fix: bg-gradient-to-br not bg-linear-to-br */}
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600 to-purple-700 flex items-center justify-center">
             <svg
               className="w-5 h-5 text-white animate-spin"
               fill="none"
@@ -121,7 +120,6 @@ function App() {
     );
   }
 
-  // Show auth page if not logged in
   if (!isAuthenticated) {
     return (
       <AuthPage
@@ -149,7 +147,6 @@ function App() {
         user={user}
         onLogout={logout}
       />
-
       <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <ChatWindow
           activeThread={activeThread}

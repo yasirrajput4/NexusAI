@@ -6,7 +6,6 @@ export function useAuth() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // On app load — verify existing token
   useEffect(() => {
     const verifyToken = async () => {
       const token = localStorage.getItem("nexusai_token");
@@ -51,10 +50,7 @@ export function useAuth() {
       });
 
       const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Registration failed");
-      }
+      if (!response.ok) throw new Error(data.error || "Registration failed");
 
       localStorage.setItem("nexusai_token", data.token);
       setUser(data.user);
@@ -79,10 +75,7 @@ export function useAuth() {
       });
 
       const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Login failed");
-      }
+      if (!response.ok) throw new Error(data.error || "Login failed");
 
       localStorage.setItem("nexusai_token", data.token);
       setUser(data.user);

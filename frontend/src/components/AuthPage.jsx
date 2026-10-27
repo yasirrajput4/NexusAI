@@ -20,9 +20,9 @@ export function AuthPage({ onLogin, onRegister, error, isLoading }) {
   return (
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center px-4">
       <div className="w-full max-w-md">
-        {/* Logo */}
         <div className="flex flex-col items-center mb-8">
-          <div className="w-14 h-14 rounded-2xl bg-linear-to-br from-violet-600 to-purple-700 flex items-center justify-center mb-4 shadow-xl shadow-violet-900/40">
+          {/* Fix: bg-gradient-to-br not bg-linear-to-br */}
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-600 to-purple-700 flex items-center justify-center mb-4 shadow-xl shadow-violet-900/40">
             <svg
               className="w-8 h-8 text-white"
               fill="none"
@@ -43,7 +43,6 @@ export function AuthPage({ onLogin, onRegister, error, isLoading }) {
           </p>
         </div>
 
-        {/* Card */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8">
           <form onSubmit={handleSubmit} className="space-y-4">
             {!isLoginMode && (

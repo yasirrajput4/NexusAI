@@ -10,7 +10,6 @@ export function useThreads(isAuthenticated) {
 
   const getToken = () => localStorage.getItem("nexusai_token");
 
-  // Load all threads from backend on login
   useEffect(() => {
     if (!isAuthenticated) {
       setThreads([]);
@@ -67,7 +66,6 @@ export function useThreads(isAuthenticated) {
     async (threadId) => {
       setActiveThreadId(threadId);
 
-      // Load messages if not already loaded
       const thread = threads.find((t) => t._id === threadId);
       if (thread && thread.messages) return;
 
@@ -149,16 +147,17 @@ export function useThreads(isAuthenticated) {
     }
   }, []);
 
-  // Called after AI responds — update thread messages + title locally
+  // Fix: filter out null messages before pushing to array
   const updateThreadAfterChat = useCallback(
     (threadId, userMessage, aiMessage, newTitle) => {
       setThreads((prev) =>
         prev.map((t) => {
           if (t._id !== threadId) return t;
+          const newMessages = [userMessage, aiMessage].filter(Boolean);
           return {
             ...t,
             title: newTitle || t.title,
-            messages: [...(t.messages || []), userMessage, aiMessage],
+            messages: [...(t.messages || []), ...newMessages],
             updatedAt: new Date().toISOString(),
           };
         }),
