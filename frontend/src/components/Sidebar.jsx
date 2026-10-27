@@ -7,7 +7,7 @@ function ThreadItem({ thread, isActive, onSelect, onDelete, onRename }) {
 
   const handleRenameSubmit = (e) => {
     e?.preventDefault();
-    if (editValue.trim()) onRename(thread.id, editValue.trim());
+    if (editValue.trim()) onRename(thread._id, editValue.trim());
     setIsEditing(false);
   };
 
@@ -60,7 +60,7 @@ function ThreadItem({ thread, isActive, onSelect, onDelete, onRename }) {
         <>
           <button
             type="button"
-            onClick={() => onSelect(thread.id)}
+            onClick={() => onSelect(thread._id)}
             className="flex-1 flex items-center gap-2 text-left min-w-0 bg-transparent outline-none cursor-pointer"
           >
             <svg
@@ -111,7 +111,7 @@ function ThreadItem({ thread, isActive, onSelect, onDelete, onRename }) {
                 type="button"
                 title="Delete"
                 aria-label="Delete conversation"
-                onClick={() => onDelete(thread.id)}
+                onClick={() => onDelete(thread._id)}
                 className="p-1 rounded hover:bg-red-500/20 text-zinc-500 hover:text-red-400 transition-colors"
               >
                 <svg
@@ -146,6 +146,8 @@ export function Sidebar({
   onRenameThread,
   isOpen,
   onClose,
+  user,
+  onLogout,
 }) {
   const [showClearConfirm, setShowClearConfirm] = useState(false);
 
@@ -161,9 +163,7 @@ export function Sidebar({
       )}
 
       <aside
-        className={`fixed lg:relative inset-y-0 left-0 z-30 lg:z-auto flex flex-col w-64 bg-zinc-950 border-r border-zinc-800/60 transition-transform duration-300 ${
-          isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-        }`}
+        className={`fixed lg:relative inset-y-0 left-0 z-30 lg:z-auto flex flex-col w-64 bg-zinc-950 border-r border-zinc-800/60 transition-transform duration-300 ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
       >
         {/* Brand */}
         <div className="flex items-center justify-between px-4 py-4 border-b border-zinc-800/60">
@@ -261,9 +261,9 @@ export function Sidebar({
             <div className="space-y-0.5 mt-1">
               {threads.map((thread) => (
                 <ThreadItem
-                  key={thread.id}
+                  key={thread._id}
                   thread={thread}
-                  isActive={thread.id === activeThreadId}
+                  isActive={thread._id === activeThreadId}
                   onSelect={onSelectThread}
                   onDelete={onDeleteThread}
                   onRename={onRenameThread}
@@ -324,12 +324,35 @@ export function Sidebar({
                 Clear all history
               </button>
             ))}
+
+          {/* User info + logout */}
           <div className="flex items-center gap-2 px-3 py-1.5">
-            <div className="w-6 h-6 rounded-full bg-linear-to-br from-violet-500 to-purple-600 flex items-center justify-center text-[10px] text-white font-semibold">
-              U
+            <div className="w-6 h-6 rounded-full bg-linear-to-br from-violet-500 to-purple-600 flex items-center justify-center text-[10px] text-white font-semibold shrink-0">
+              {user?.name?.charAt(0).toUpperCase() || "U"}
             </div>
-            <span className="text-xs text-zinc-500">GPT-OSS 120B</span>
-            <div className="ml-auto w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
+            <span className="text-xs text-zinc-500 truncate flex-1">
+              {user?.name || "User"}
+            </span>
+            <button
+              type="button"
+              onClick={onLogout}
+              title="Logout"
+              className="p-1 rounded text-zinc-600 hover:text-red-400 hover:bg-red-950/30 transition-colors shrink-0"
+            >
+              <svg
+                className="w-3.5 h-3.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                />
+              </svg>
+            </button>
           </div>
         </div>
       </aside>
