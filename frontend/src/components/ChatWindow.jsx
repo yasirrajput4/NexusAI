@@ -17,7 +17,11 @@ export function ChatWindow({
     }
   }, [activeThread?.messages?.length, isLoading]);
 
-  const isEmpty = !activeThread || activeThread.messages.length === 0;
+  // const isEmpty = !activeThread || activeThread.messages.length === 0;
+  const isEmpty =
+    !activeThread ||
+    !activeThread.messages ||
+    activeThread.messages.length === 0;
 
   return (
     <div className="flex flex-col h-full bg-zinc-950">
@@ -104,11 +108,11 @@ export function ChatWindow({
         <>
           <div className="flex-1 overflow-y-auto chat-scroll">
             <div className="max-w-3xl mx-auto w-full py-4">
-              {activeThread.messages.map((message, index) => (
+              {(activeThread.messages || []).map((message, index) => (
                 <MessageBubble
                   key={message.id}
                   message={message}
-                  isLast={index === activeThread.messages.length - 1}
+                  isLast={index === (activeThread.messages || []).length - 1}
                 />
               ))}
               {isLoading && <SkeletonLoader />}
