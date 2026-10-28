@@ -147,7 +147,6 @@ export function useThreads(isAuthenticated) {
     }
   }, []);
 
-  // Fix: filter out null messages before pushing to array
   const updateThreadAfterChat = useCallback(
     (threadId, userMessage, aiMessage, newTitle) => {
       setThreads((prev) =>

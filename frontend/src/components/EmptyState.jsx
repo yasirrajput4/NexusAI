@@ -1,7 +1,6 @@
 export function EmptyState() {
   return (
     <div className="flex flex-col items-center justify-center text-center">
-      {/* Fix: bg-gradient-to-br not bg-linear-to-br */}
       <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-violet-600 to-purple-700 flex items-center justify-center mb-8 shadow-xl shadow-violet-900/40">
         <svg
           className="w-11 h-11 text-white"

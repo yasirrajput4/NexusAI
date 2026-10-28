@@ -121,7 +121,6 @@ export function MessageBubble({ message }) {
       <div className="message-enter flex justify-end px-4 py-2">
         <div className="max-w-[75%] lg:max-w-[60%]">
           <div className="bg-zinc-800 border border-zinc-700/60 rounded-2xl rounded-tr-sm px-4 py-3">
-            {/* Fix: break-words not wrap-break-word */}
             <p className="text-base text-zinc-100 leading-relaxed whitespace-pre-wrap break-words">
               {message.text}
             </p>
@@ -133,7 +132,6 @@ export function MessageBubble({ message }) {
 
   return (
     <div className="message-enter group flex gap-3 px-4 py-3">
-      {/* Fix: bg-gradient-to-br not bg-linear-to-br */}
       <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-600 to-purple-700 flex items-center justify-center shrink-0 mt-0.5 shadow-md">
         <svg
           className="w-4 h-4 text-white"
@@ -166,7 +164,6 @@ export function MessageBubble({ message }) {
 export function SkeletonLoader() {
   return (
     <div className="flex gap-3 px-4 py-3">
-      {/* Fix: bg-gradient-to-br not bg-linear-to-br */}
       <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-600/50 to-purple-700/50 flex items-center justify-center shrink-0 mt-0.5">
         <svg
           className="w-4 h-4 text-white/50"
